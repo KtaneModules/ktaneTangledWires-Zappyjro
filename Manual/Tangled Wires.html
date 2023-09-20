@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1">
+    <title>Tangled Wires — Keep Talking and Nobody Explodes Module</title>
+    <link rel="stylesheet" type="text/css" href="css/font.css">
+    <link rel="stylesheet" type="text/css" href="css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <script src="js/ktane-utils.js"></script>
+</head>
+<body>
+    <div class="section">
+        <div class="page page-bg-01">
+            <div class="page-header">
+                <span class="page-header-doc-title">Keep Talking and Nobody Explodes Mod</span>
+                <span class="page-header-section-title">Tangled Wires</span>
+            </div>
+            <div class="page-content">
+                <img src="img/Component/Module Name.svg" class="diagram">
+                <h2>On the Subject of Tangled Wires</h2>
+                <p class="flavour-text">Whoever made a bomb this complex sure lacked cable management skills.</p>
+
+                <p>To disarm this modules the wires must first be untangled, then the relevant wire(s) should be cut. The more moves it takes the defuser to untangle the wires, the harder it will be to figure out which wire to cut!</p>
+
+                <h3>Untangling the wires:</h3>
+                <p>To untangle the wires click on the orange pegs to swap the two squares adjacent to them, each click of a peg counts as 1 move.</p>
+                <h3>Cutting the wire(s):</h3>
+                <p>Begin with the first digit in the serial number. Repeat the steps in the bullet points below equal to the amount of moves taken to untangle the wires, e.g. if it took 6 moves, repeat the bullet pointed steps in order 6 times.</p>
+                <ul>
+                    <li>Add 1 to the number.</li>
+                    <li>Multiply the number by 2.</li>
+                    <li>If the current count is square add the last digit of the serial number.</li>
+                    <li>Otherwise, if the current count is prime subtract the last digit of the serial number.</li>
+                    <li>Otherwise, add 3.</li>
+                    <li>If the number is less than 1 or greater than 100, add or subtract 100 until the number is in the range 1-100.</li>
+                </ul>
+                <p>Once you've repeated the steps equal the the amount of moves taken, take the least significant digit of the final number and cut the corresponding wire(s) in the table below:</p>
+                <table>
+                    <tr>
+                        <th>#</th>
+                        <th>Wire(s) to cut</th>
+                        <th>#</th>
+                        <th>Wire(s) to cut</th>
+                    </tr>
+                    <tr>
+                        <td>0</td>
+                        <td>Cut the black wire.</td>
+                        <td>5</td>
+                        <td>Cut the wire in the 1st position.</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>Cut the blue wire.</td>
+                        <td>6</td>
+                        <td>Cut the wire in the 2nd position.</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Cut the red wire.</td>
+                        <td>7</td>
+                        <td>Cut the wire in the 3rd position.</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Cut the yellow wire.</td>
+                        <td>8</td>
+                        <td>Cut the wire in the 4th position.</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Cut the black and blue wires.</td>
+                        <td>9</td>
+                        <td>Cut the wire in the 1st and 3rd positions.</td>
+                    </tr>
+                </table>
+                <p><small>Square numbers: 1 4 9 16 25 36 49 64 81 100 121 144 169 196 <br> Prime numbers: 2 3 5 7 11 13 17 19 23 29 31 37 41 43 47 53 59 61 67 71 73 79 83 89 97 101 103 107 109 113 127 131 137 139 149 151 157 163 167 173 179 181 191 193 197 199</small></p>
+            </div>
+            <div class="page-footer relative-footer">Page 1 of 1</div>
+        </div>
+    </div>
+</body>
+</html>
