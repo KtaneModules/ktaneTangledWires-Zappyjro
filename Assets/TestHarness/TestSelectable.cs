@@ -78,6 +78,12 @@ public class TestSelectable : MonoBehaviour
     {
         ModSelectable = GetComponent<KMSelectable>();
 
+        UpdateChildrenPositions();
+    }
+    
+    public void UpdateChildrenPositions()
+    {
+
         if (ChildRowLength == 0 || Children == null)
         {
             return;
@@ -118,7 +124,8 @@ public class TestSelectable : MonoBehaviour
 
     public void Select()
     {
-        Highlight.On();
+        if (Highlight != null)
+            Highlight.On();
         if (ModSelectable.OnSelect != null)
         {
             ModSelectable.OnSelect();
@@ -141,7 +148,8 @@ public class TestSelectable : MonoBehaviour
 
     public void Deselect()
     {
-        Highlight.Off();
+        if (Highlight != null)
+            Highlight.Off();
         if (ModSelectable.OnHighlightEnded != null)
         {
             ModSelectable.OnHighlightEnded();

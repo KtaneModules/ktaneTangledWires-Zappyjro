@@ -24,18 +24,15 @@
                 <p>To disarm this modules the wires must first be untangled, then the relevant wire(s) should be cut. The more moves it takes the defuser to untangle the wires, the harder it will be to figure out which wire to cut!</p>
 
                 <h3>Untangling the wires:</h3>
-                <p>To untangle the wires click on the orange pegs to swap the two squares adjacent to them, each click of a peg counts as 1 move.</p>
+                <p>To untangle the wires click on the orange pegs to swap the two squares adjacent to them, each click of a peg counts as 1 move. The green peg will swap just the inputs and will count as 5 moves if clicked.</p>
                 <h3>Cutting the wire(s):</h3>
-                <p>Begin with the first digit in the serial number. Repeat the steps in the bullet points below equal to the amount of moves taken to untangle the wires, e.g. if it took 6 moves, repeat the bullet pointed steps in order 6 times.</p>
+                <p>Begin with the first digit in the serial number. Repeat the steps in the bullet points below equal to the amount of moves taken to untangle the wires divided by 4, rounded up, e.g. if it took 17 moves, repeat the bullet pointed steps in order 5 times.</p>
                 <ul>
-                    <li>Add 1 to the number.</li>
+                    <li>Add the last digit of the serial number to the number.</li>
                     <li>Multiply the number by 2.</li>
-                    <li>If the current count is square add the last digit of the serial number.</li>
-                    <li>Otherwise, if the current count is prime subtract the last digit of the serial number.</li>
-                    <li>Otherwise, add 3.</li>
-                    <li>If the number is less than 1 or greater than 100, add or subtract 100 until the number is in the range 1-100.</li>
+                    <li>If the current number is greater than 1000, divide by 10, then only take the integer part of the number.</li>
                 </ul>
-                <p>Once you've repeated the steps equal the the amount of moves taken, take the least significant digit of the final number and cut the corresponding wire(s) in the table below:</p>
+                <p>Once you've finished repeating the steps, take the least significant digit of the final number and cut the corresponding wire(s) in the table below:</p>
                 <table>
                     <tr>
                         <th>#</th>
@@ -74,7 +71,6 @@
                         <td>Cut the wire in the 1st and 3rd positions.</td>
                     </tr>
                 </table>
-                <p><small>Square numbers: 1 4 9 16 25 36 49 64 81 100 121 144 169 196 <br> Prime numbers: 2 3 5 7 11 13 17 19 23 29 31 37 41 43 47 53 59 61 67 71 73 79 83 89 97 101 103 107 109 113 127 131 137 139 149 151 157 163 167 173 179 181 191 193 197 199</small></p>
             </div>
             <div class="page-footer relative-footer">Page 1 of 1</div>
         </div>
