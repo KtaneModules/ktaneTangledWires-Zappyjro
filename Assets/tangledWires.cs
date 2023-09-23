@@ -24,6 +24,7 @@ public class tangledWires : MonoBehaviour {
 	public KMSelectable green;
 	public GameObject[] squares;
 	public KMSelectable moduleSelectable;
+	public KMSelectable wireZero;
 
 	public GameObject[] buttonObjects;
 	public GameObject movesBack;
@@ -176,17 +177,6 @@ public class tangledWires : MonoBehaviour {
 	}
 
 	void untangled() {
-		for (int i = 0; i < buttonObjects.Count(); i++) {
-			buttonObjects [i].SetActive (false);
-		}
-		for (int i = 0; i < 16; i++) {
-			moduleSelectable.Children [i] = null;
-		}
-		moduleSelectable.Children [0] = finalClickables [0];
-		moduleSelectable.Children [1] = finalClickables [1];
-		moduleSelectable.Children [2] = finalClickables [2];
-		moduleSelectable.Children [3] = finalClickables [3];
-		moduleSelectable.UpdateChildrenProperly(finalClickables[0]);
 		float repeats = (moves / 4);
 		if (moves % 4 == 0) {
 			repeats -= 1;
@@ -209,6 +199,10 @@ public class tangledWires : MonoBehaviour {
 			finalWires [i].SetActive (true);
 			finalWiresMesh [i].material = wireMats [rowOne [i]];
 		}
+
+		for (int i = 0; i < buttonObjects.Count(); i++) {
+			buttonObjects [i].SetActive (false);
+		}
 		for (int i = 0; i < 4; i++) {
 			int j = i;
 			lines [i].enabled = false;
@@ -217,6 +211,23 @@ public class tangledWires : MonoBehaviour {
 				return false;
 			};
 		}
+		moduleSelectable.Children [0] = finalClickables[0];
+		moduleSelectable.Children [1] = finalClickables[1];
+		moduleSelectable.Children [2] = finalClickables[2];
+		moduleSelectable.Children [3] = finalClickables[3];
+		moduleSelectable.Children [4] = null;
+		moduleSelectable.Children [5] = null;
+		moduleSelectable.Children [6] = null;
+		moduleSelectable.Children [7] = null;
+		moduleSelectable.Children [8] = null;
+		moduleSelectable.Children [9] = null;
+		moduleSelectable.Children [10] = null;
+		moduleSelectable.Children [11] = null;
+		moduleSelectable.Children [12] = null;
+		moduleSelectable.Children [13] = null;
+		moduleSelectable.Children [14] = null;
+		moduleSelectable.Children [15] = null;
+		moduleSelectable.UpdateChildrenProperly(wireZero);
 	}
 
 

@@ -4955,6 +4955,7 @@ MonoBehaviour:
   - {fileID: 1507709149950556}
   - {fileID: 1906987413508964}
   moduleSelectable: {fileID: 114844136430449190}
+  wireZero: {fileID: 114934996470043866}
   buttonObjects:
   - {fileID: 1131999805554198}
   - {fileID: 1340408822303780}
@@ -5610,6 +5611,10 @@ MonoBehaviour:
   - {fileID: 114964604453315784}
   - {fileID: 114318178918421416}
   - {fileID: 0}
+  - {fileID: 114934996470043866}
+  - {fileID: 114835354075369126}
+  - {fileID: 114562385666213456}
+  - {fileID: 114169128205708184}
   IsPassThrough: 0
   ChildRowLength: 4
   Highlight: {fileID: 114754889567414048}
