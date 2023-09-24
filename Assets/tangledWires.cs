@@ -25,16 +25,16 @@ public class tangledWires : MonoBehaviour {
 	public GameObject[] squares;
 	public KMSelectable moduleSelectable;
 	public KMSelectable wireZero;
-
 	public GameObject[] buttonObjects;
 	public GameObject movesBack;
 	public GameObject[] finalWires;
 	public MeshRenderer[] finalWiresMesh;
 	public KMSelectable[] finalClickables;
+	public GameObject[] cutWires;
+	public MeshRenderer[] cutWireMain;
 
 	private static int _moduleIdCounter = 1;
 	private int _moduleId = 0;
-
 	private int moves;
 	private bool _isSolved = false;
 	private int[] rowOne = new int[4];
@@ -42,7 +42,6 @@ public class tangledWires : MonoBehaviour {
 	private int[] rowThree = new int[4];
 	private int[] rowFour = new int[4];
 	private int finalTotal = 0;
-
 	private LineRenderer blackWire, blueWire, redWire, yellowWire;
 
 	int[] swap(int x, int y, int[] array){
@@ -52,16 +51,6 @@ public class tangledWires : MonoBehaviour {
 		array[y] = temp;    
 		return array;
 	}
-	void swapGObjects(int x, int y, GameObject[] array){
-		// swap 2 things in an array
-		var temp = array[x];
-		array[x] = array[y];
-		array[y] = temp;    
-		return;
-	}
-
-
-	// Use this for initialization
 	void Start () {
 		blackWire = lines[0];
 		blueWire = lines[1];
@@ -72,6 +61,7 @@ public class tangledWires : MonoBehaviour {
 
 		for (int i = 0; i < 4; i++) {
 			finalWires [i].SetActive (false);
+			cutWires [i].SetActive (false);
 		}
 
 		//Choose wires start positions
@@ -189,7 +179,7 @@ public class tangledWires : MonoBehaviour {
 		for (int i = 0; i <= repeatsInt; i++) {
 			current += serialLast;
 			current = current * 2;
-			if (current > 1000) {
+			if (current > 500) {
 				current = current / 10;
 			}
 			Debug.LogFormat ("[Tangled Wires #{0}] After {1} steps the sum is {2}.", _moduleId, i+1, current);
@@ -198,6 +188,8 @@ public class tangledWires : MonoBehaviour {
 		for (int i = 0; i < 4; i++) {
 			finalWires [i].SetActive (true);
 			finalWiresMesh [i].material = wireMats [rowOne [i]];
+			cutWireMain [2 * i].material = wireMats [rowOne [i]];
+			cutWireMain [(2 * i)+1].material = wireMats [rowOne [i]];
 		}
 
 		for (int i = 0; i < buttonObjects.Count(); i++) {
@@ -236,9 +228,11 @@ public class tangledWires : MonoBehaviour {
 			return;
 		}
 		finalWires [position].SetActive (false);
+		Audio.PlayGameSoundAtTransform (KMSoundOverride.SoundEffect.WireSnip, Module.transform);
+		cutWires [position].SetActive (true);
 		if (rowOne [position] == 0) {
 			Debug.LogFormat ("[Tangled Wires #{0}] Black wire removed.", _moduleId);
-			if ((finalTotal % 10) == 0 || (finalTotal % 10) == 4 || (finalTotal % 10) == 8) {
+			if ((finalTotal % 10) == 0) {
 				Debug.LogFormat ("[Tangled Wires #{0}] That was correct.", _moduleId);
 				_isSolved = true;
 				Module.HandlePass ();
@@ -248,7 +242,7 @@ public class tangledWires : MonoBehaviour {
 			}
 		} else if (rowOne [position] == 1) {
 			Debug.LogFormat ("[Tangled Wires #{0}] Blue wire removed.", _moduleId);
-			if ((finalTotal % 10) == 1 || (finalTotal % 10) == 5 || (finalTotal % 10) == 9) {
+			if ((finalTotal % 10) == 2 || (finalTotal % 10) == 5 || (finalTotal % 10) == 8) {
 				Debug.LogFormat ("[Tangled Wires #{0}] That was correct.", _moduleId);
 				_isSolved = true;
 				Module.HandlePass ();
@@ -258,7 +252,7 @@ public class tangledWires : MonoBehaviour {
 			}
 		} else if (rowOne [position] == 2) {
 			Debug.LogFormat ("[Tangled Wires #{0}] Red wire removed.", _moduleId);
-			if ((finalTotal % 10) == 2 || (finalTotal % 10) == 6) {
+			if ((finalTotal % 10) == 1 || (finalTotal % 10) == 6 || (finalTotal % 10) == 9) {
 				Debug.LogFormat ("[Tangled Wires #{0}] That was correct.", _moduleId);
 				_isSolved = true;
 				Module.HandlePass ();
@@ -268,7 +262,7 @@ public class tangledWires : MonoBehaviour {
 			}
 		} else if (rowOne [position] == 3) {
 			Debug.LogFormat ("[Tangled Wires #{0}] Yellow wire removed.", _moduleId);
-			if ((finalTotal % 10) == 3 || (finalTotal % 10) == 7) {
+			if ((finalTotal % 10) == 3 || (finalTotal % 10) == 7 || (finalTotal % 10) == 4) {
 				Debug.LogFormat ("[Tangled Wires #{0}] That was correct.", _moduleId);
 				_isSolved = true;
 				Module.HandlePass ();
@@ -317,6 +311,58 @@ public class tangledWires : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		movesCounterText.text = "" + moves;
+		if (!_isSolved) {
+			movesCounterText.text = "" + moves;
+		} else {
+			movesCounterText.text = "✓";
+		}
+	}
+
+	private readonly string TwitchHelpMessage = @"Press an orange peg by typing '!{0} 1', with 1 being replaced by the reading order position of the peg you want to press, e.g. bottom middle would be 8. Press the green peg by typing '!{0} green'. Cut a wire by typing '!{0} cut1' with 1 being replaced by the position of the wire you wish to cut.";
+	private IEnumerator ProcessTwitchCommand(string command){
+		command = command.ToLowerInvariant ();
+		if (command.Equals ("1")) {
+			yield return null;
+			handlePress (0);
+		} else if (command.Equals ("2")) {
+			yield return null;
+			handlePress (1);
+		} else if (command.Equals ("3")) {
+			yield return null;
+			handlePress (2);
+		} else if (command.Equals ("4")) {
+			yield return null;
+			handlePress (3);
+		} else if (command.Equals ("5")) {
+			yield return null;
+			handlePress (4);
+		} else if (command.Equals ("6")) {
+			yield return null;
+			handlePress (5);
+		} else if (command.Equals ("7")) {
+			yield return null;
+			handlePress (6);
+		} else if (command.Equals ("8")) {
+			yield return null;
+			handlePress (7);
+		} else if (command.Equals ("9")) {
+			yield return null;
+			handlePress (8);
+		} else if (command.Equals ("green")) {
+			yield return null;
+			handlePress (9);
+		} else if (command.Equals ("cut1")) {
+			yield return null;
+			handleWireCut(0);
+		} else if (command.Equals ("cut2")) {
+			yield return null;
+			handleWireCut(1);
+		} else if (command.Equals ("cut3")) {
+			yield return null;
+			handleWireCut(2);
+		} else if (command.Equals ("cut4")) {
+			yield return null;
+			handleWireCut(3);
+		}
 	}
 }
