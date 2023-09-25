@@ -167,7 +167,7 @@ public class tangledWires : MonoBehaviour {
 	}
 
 	void untangled() {
-		float repeats = (moves / 4);
+		float repeats = (moves / 5);
 		if (moves % 4 == 0) {
 			repeats -= 1;
 		}
@@ -176,6 +176,9 @@ public class tangledWires : MonoBehaviour {
 		int serialFirst = Info.GetSerialNumberNumbers ().First ();
 		int serialLast = Info.GetSerialNumberNumbers ().Last ();
 		int current = serialFirst;
+		if (moves > 60) {
+			repeatsInt = 11;
+		}
 		for (int i = 0; i <= repeatsInt; i++) {
 			current += serialLast;
 			current = current * 2;
