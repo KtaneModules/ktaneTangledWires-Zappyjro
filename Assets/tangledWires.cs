@@ -44,6 +44,7 @@ public class tangledWires : MonoBehaviour {
 	private int[] rowFour = new int[4];
 	private int finalTotal = 0;
 	private LineRenderer blackWire, blueWire, redWire, yellowWire;
+	int wireToCut;
 
 	int[] swap(int x, int y, int[] array){
 		// swap 2 things in an array
@@ -231,12 +232,49 @@ public class tangledWires : MonoBehaviour {
 		if (_isSolved) {
 			return;
 		}
+		var rnd = RuleSeedable.GetRNG ();
+		Debug.LogFormat ("[Tangled Wires #{0}] Using rule seed: {1}.", _moduleId, rnd.Seed);
+		int finalValue = finalTotal % 10;
+		if (rnd.Seed == 1) {
+			if (finalValue == 0) {
+				wireToCut = 0;
+			} else if (finalValue == 2 || finalValue == 5 || finalValue == 8) {
+				wireToCut = 1;
+			} else if (finalValue == 1 || finalValue == 6 || finalValue == 9) {
+				wireToCut = 2;
+			} else if (finalValue == 3 || finalValue == 7 || finalValue == 4) {
+				wireToCut = 3;
+			}
+		} else {
+			int zero = rnd.Next (4), one = rnd.Next (4), two = rnd.Next (4), three = rnd.Next (4), four = rnd.Next (4), five = rnd.Next (4), six = rnd.Next (4), seven = rnd.Next (4), eight = rnd.Next (4), nine = rnd.Next (4);
+			if (finalValue == 0) {
+				wireToCut = zero;
+			} else if (finalValue == 1) {
+				wireToCut = one;
+			} else if (finalValue == 2) {
+				wireToCut = two;
+			} else if (finalValue == 3) {
+				wireToCut = three;
+			} else if (finalValue == 4) {
+				wireToCut = four;
+			} else if (finalValue == 5) {
+				wireToCut = five;
+			} else if (finalValue == 6) {
+				wireToCut = six;
+			} else if (finalValue == 7) {
+				wireToCut = seven;
+			} else if (finalValue == 8) {
+				wireToCut = eight;
+			} else if (finalValue == 9) {
+				wireToCut = nine;
+			} 
+		}
 		finalWires [position].SetActive (false);
 		Audio.PlayGameSoundAtTransform (KMSoundOverride.SoundEffect.WireSnip, Module.transform);
 		cutWires [position].SetActive (true);
 		if (rowOne [position] == 0) {
 			Debug.LogFormat ("[Tangled Wires #{0}] Black wire removed.", _moduleId);
-			if ((finalTotal % 10) == 0) {
+			if (wireToCut == 0) {
 				Debug.LogFormat ("[Tangled Wires #{0}] That was correct.", _moduleId);
 				_isSolved = true;
 				Module.HandlePass ();
@@ -246,7 +284,7 @@ public class tangledWires : MonoBehaviour {
 			}
 		} else if (rowOne [position] == 1) {
 			Debug.LogFormat ("[Tangled Wires #{0}] Blue wire removed.", _moduleId);
-			if ((finalTotal % 10) == 2 || (finalTotal % 10) == 5 || (finalTotal % 10) == 8) {
+			if (wireToCut == 1) {
 				Debug.LogFormat ("[Tangled Wires #{0}] That was correct.", _moduleId);
 				_isSolved = true;
 				Module.HandlePass ();
@@ -256,7 +294,7 @@ public class tangledWires : MonoBehaviour {
 			}
 		} else if (rowOne [position] == 2) {
 			Debug.LogFormat ("[Tangled Wires #{0}] Red wire removed.", _moduleId);
-			if ((finalTotal % 10) == 1 || (finalTotal % 10) == 6 || (finalTotal % 10) == 9) {
+			if (wireToCut == 2) {
 				Debug.LogFormat ("[Tangled Wires #{0}] That was correct.", _moduleId);
 				_isSolved = true;
 				Module.HandlePass ();
@@ -266,7 +304,7 @@ public class tangledWires : MonoBehaviour {
 			}
 		} else if (rowOne [position] == 3) {
 			Debug.LogFormat ("[Tangled Wires #{0}] Yellow wire removed.", _moduleId);
-			if ((finalTotal % 10) == 3 || (finalTotal % 10) == 7 || (finalTotal % 10) == 4) {
+			if (wireToCut == 3) {
 				Debug.LogFormat ("[Tangled Wires #{0}] That was correct.", _moduleId);
 				_isSolved = true;
 				Module.HandlePass ();
