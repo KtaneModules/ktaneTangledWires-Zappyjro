@@ -168,7 +168,7 @@ public class tangledWires : MonoBehaviour {
 
 	void untangled() {
 		float repeats = (moves / 5);
-		if (moves % 4 == 0) {
+		if (moves % 5 == 0) {
 			repeats -= 1;
 		}
 		repeats -= repeats % 1;
