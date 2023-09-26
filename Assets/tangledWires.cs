@@ -11,6 +11,7 @@ public class tangledWires : MonoBehaviour {
 	public KMAudio Audio;
 	public KMBombModule Module;
 	public KMBombInfo Info;
+	public KMRuleSeedable RuleSeedable;
 	public KMSelectable[] swapButtons;
 	public TextMesh movesCounterText;
 	public Material[] wireMats;

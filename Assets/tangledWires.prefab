@@ -1322,6 +1322,7 @@ GameObject:
   - component: {fileID: 114768681812984320}
   - component: {fileID: 114844136430449190}
   - component: {fileID: 114281239228667548}
+  - component: {fileID: 114323317038116056}
   m_Layer: 0
   m_Name: tangledWires
   m_TagString: Untagged
@@ -6229,6 +6230,7 @@ MonoBehaviour:
   Audio: {fileID: 114994456453903704}
   Module: {fileID: 114768681812984320}
   Info: {fileID: 114329812065935818}
+  RuleSeedable: {fileID: 114323317038116056}
   swapButtons:
   - {fileID: 114974903775867538}
   - {fileID: 114659219345027506}
@@ -6398,6 +6400,18 @@ MonoBehaviour:
   AllowSelectionWrapY: 0
   ForceSelectionHighlight: 0
   ForceInteractionHighlight: 0
+--- !u!114 &114323317038116056
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1709577971704612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adf69c2de51bd3c43bbd9bc22578ee08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _seed: 1
 --- !u!114 &114329812065935818
 MonoBehaviour:
   m_ObjectHideFlags: 1
